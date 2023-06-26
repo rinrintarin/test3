@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tutoring Help</title>
+</head>
+<body>
+  <h1>Tutoring Help</h1>
+  
+  <form>
+    <label for="studentName">Please enter student name:</label>
+    <input type="text" id="studentName" name="studentName" required>
+    
+    <br>
+    
+    <label for="email">Please enter your eemail:</label>
+    <input type="email" id="email" name="email" required>
+    
+    <br>
+    
+    <label for="tutoringLevel">Please select the level of tutoring required:</label>
+    <select id="tutoringLevel" name="tutoringLevel">
+      <option value="elementary" data-price="50">Elementary</option>
+      <option value="middleSchool" data-price="75">Middle School</option>
+      <option value="highSchool" data-price="100">High School</option>
+      <option value="college" data-price="125">College</option>
+    </select>
+    
+    <br>
+    
+    <label for="subject">Please select the subject:</label>
+    <select id="subject" name="subject">
+      <option value="math" data-price="20">Math</option>
+      <option value="english" data-price="20">English</option>
+      <option value="business" data-price="15">Business</option>
+      <option value="accounting" data-price="15">Accounting</option>
+      <option value="economics" data-price="15">Economics</option>
+    </select>
+    
+    <br>
+    
+    <button type="submit" onclick="sendReceiptEmail()">Submit</button>
+  </form>
+</body>
+</html>
