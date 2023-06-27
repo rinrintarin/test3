@@ -2,43 +2,51 @@
 <html>
 <head>
   <title>Tutoring Help</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
   <h1>Tutoring Help</h1>
-  
-  <form>
-    <label for="studentName">Please enter student name:</label>
-    <input type="text" id="studentName" name="studentName" required>
-    
+  <form id="tutoring-form">
+    <label for="student-name">1) Please enter student name:</label>
+    <input type="text" id="student-name" name="student-name" required>
     <br>
-    
-    <label for="email">Please enter your eemail:</label>
+    <label for="birth-date">2) Please enter birth date:</label>
+    <input type="date" id="birth-date" name="birth-date" required>
+    <br>
+    <label for="level">3) Please enter level of tutoring required:</label>
+    <select id="level" name="level" required>
+      <option value="elementary">Elementary</option>
+      <option value="middle-school">Middle School</option>
+      <option value="high-school">High School</option>
+      <option value="college">College</option>
+    </select>
+    <br>
+    <label for="subjects">4) Please select subjects:</label>
+    <br>
+    <input type="checkbox" id="math" name="subjects" value="20">
+    <label for="math">Math - $20/hour</label>
+    <br>
+    <input type="checkbox" id="english" name="subjects" value="20">
+    <label for="english">English - $20/hour</label>
+    <br>
+    <input type="checkbox" id="business" name="subjects" value="15">
+    <label for="business">Business - $15/hour</label>
+    <br>
+    <input type="checkbox" id="accounting" name="subjects" value="15">
+    <label for="accounting">Accounting - $15/hour</label>
+    <br>
+    <input type="checkbox" id="economics" name="subjects" value="15">
+    <label for="economics">Economics - $15/hour</label>
+    <br><br>
+    <button type="button" onclick="calculateTotal()">Calculate Total</button>
+    <p id="total-price">Total Price: $0</p>
+    <br>
+    <label for="email">5) Please enter your email:</label>
     <input type="email" id="email" name="email" required>
-    
-    <br>
-    
-    <label for="tutoringLevel">Please select the level of tutoring required:</label>
-    <select id="tutoringLevel" name="tutoringLevel">
-      <option value="elementary" data-price="50">Elementary</option>
-      <option value="middleSchool" data-price="75">Middle School</option>
-      <option value="highSchool" data-price="100">High School</option>
-      <option value="college" data-price="125">College</option>
-    </select>
-    
-    <br>
-    
-    <label for="subject">Please select the subject:</label>
-    <select id="subject" name="subject">
-      <option value="math" data-price="20">Math</option>
-      <option value="english" data-price="20">English</option>
-      <option value="business" data-price="15">Business</option>
-      <option value="accounting" data-price="15">Accounting</option>
-      <option value="economics" data-price="15">Economics</option>
-    </select>
-    
-    <br>
-    
-    <button type="submit" onclick="sendReceiptEmail()">Submit</button>
+    <br><br>
+    <button type="submit">Submit</button>
   </form>
+
+  <script src="https://cdn.emailjs.com/sdk/2.4.1/email.min.js"></script>
 </body>
 </html>
