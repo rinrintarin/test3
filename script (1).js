@@ -1,33 +1,47 @@
-  <script>
-    function sendReceiptEmail() {
-      // Fetch the form values
-      const studentName = document.getElementById('studentName').value;
-      const email = document.getElementById('email').value;
-      const tutoringLevelSelect = document.getElementById('tutoringLevel');
-      const selectedTutoringLevel = tutoringLevelSelect.options[tutoringLevelSelect.selectedIndex];
-      const tutoringLevelPrice = selectedTutoringLevel.dataset.price;
-      const subjectSelect = document.getElementById('subject');
-      const selectedSubject = subjectSelect.options[subjectSelect.selectedIndex];
-      const subjectPrice = selectedSubject.dataset.price;
-      const totalPrice = parseInt(tutoringLevelPrice) + parseInt(subjectPrice);
+$(document).ready(function() {
+  // Handle form submission
+  $("#tutoring-form").submit(function(e) {
+    e.preventDefault();
 
-      // Construct the email template parameters
-      const templateParams = {
-        studentName,
-        email,
-        tutoringLevel: selectedTutoringLevel.value,
-        subject: selectedSubject.value,
-        totalPrice
-      };
+    // Retrieve form data
+    var studentName = $("#student-name").val();
+    var birthDate = $("#birth-date").val();
+    var level = $("#level").val();
+    var selectedSubjects = $("input[name='subjects']:checked").map(function() {
+      return $(this).attr("id");
+    }).get();
+    var email = $("#email").val();
 
-      // Send the email using EmailJS
-      emailjs.send('service_lg8lnm5', 'template_3ccb7fp', templateParams, 'YZcQvqy2JGrh8bSzq')
-        .then(function(response) {
-          console.log('Email sent successfully!', response.status, response.text);
-          alert('Receipt email sent successfully!');
-        }, function(error) {
-          console.error('Error sending email:', error);
-          alert('Failed to send receipt email.');
-        });
-    }
-  </script>
+    // Construct the receipt email body
+    var receipt = "Thank you for your tutoring order!\n\n";
+    receipt += "Student Name: " + studentName + "\n";
+    receipt += "Birth Date: " + birthDate + "\n";
+    receipt += "Level of Tutoring: " + level + "\n";
+    receipt += "Selected Subjects:\n";
+    selectedSubjects.forEach(function(subject) {
+      receipt += "- " + subject.charAt(0).toUpperCase() + subject.slice(1) + "\n";
+    });
+    receipt += "Total Price: $" + $("#total-price").text().substring(1) + "\n\n";
+    receipt += "We will contact you shortly to schedule the tutoring sessions.";
+
+    // Send the receipt email using EmailJS
+    var templateParams = {
+      to_email: email,
+      from_name: "Your Name",
+      message: receipt
+    };
+
+    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+      .then(function(response) {
+        // Display success message
+        alert("Receipt sent successfully!\nPlease check your email.");
+
+        // Reset the form
+        $("#tutoring-form")[0].reset();
+        $("#total-price").text("Total Price: $0");
+      }, function(error) {
+        // Display error message
+        alert("Failed to send receipt.\nPlease try again later.");
+      });
+  });
+});
